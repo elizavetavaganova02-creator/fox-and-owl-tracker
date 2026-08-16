@@ -4,7 +4,6 @@ import { getFirebaseErrorMessage } from '../utils/firebaseErrors.js'
 import DeleteLessonDialog from './DeleteLessonDialog.jsx'
 import LessonFormDialog from './LessonFormDialog.jsx'
 import StatusMessage from './StatusMessage.jsx'
-import { UiIcon } from './UiIcon.jsx'
 
 function formatLessonDate(timestamp) {
   if (!timestamp?.toDate) return { date: '—', time: '—' }
@@ -100,15 +99,30 @@ export default function LessonsPage({ students, onStudentsChanged }) {
   }
 
   const activeStudents = students.filter((student) => student.active)
+  const attendedLessons = lessons.filter((lesson) => lesson.attended).length
+  const missedLessons = lessons.filter((lesson) => !lesson.attended).length
+  const issuedCoins = lessons.reduce((total, lesson) => total + Number(lesson.coins || 0), 0)
 
   return (
-    <>
-      <header className="page-header">
-        <div><p className="eyebrow">История занятий</p><h1>Уроки</h1></div>
+    <div className="lessons-page">
+      <header className="page-header lessons-header">
+        <div><p className="eyebrow">История занятий</p><h1>Уроки</h1><span>Посещаемость, результаты и начисленные монеты</span></div>
         <button className="primary-button add-student-button" disabled={!activeStudents.length} onClick={openCreateForm} type="button">
           + Добавить урок
         </button>
       </header>
+
+      <section className="lessons-overview" aria-label="Краткая статистика уроков">
+        <article><img alt="" src="/lessons/lessons_icon_lesson.png" /><div><span>Всего уроков</span><strong>{lessons.length}</strong></div></article>
+        <article><img alt="" src="/lessons/lessons_icon_attendance.png" /><div><span>Посещено</span><strong>{attendedLessons}</strong></div></article>
+        <article><img alt="" src="/lessons/lessons_icon_missed.png" /><div><span>Пропущено</span><strong>{missedLessons}</strong></div></article>
+        <article><img alt="" src="/lessons/lessons_icon_coins.png" /><div><span>Монет начислено</span><strong>{issuedCoins}</strong></div></article>
+      </section>
+
+      <section className="lessons-support-card">
+        <img alt="Лиса и сова учатся вместе" src="/lessons/lessons_header_fox_owl.png" />
+        <div><p className="eyebrow">Fox & Owl</p><h2>Каждый урок — ещё один шаг вперёд</h2><span>Посещаемость, домашние задания и активность собраны в одном месте.</span></div>
+      </section>
 
       <div className="page-messages" aria-live="polite">
         <StatusMessage>{error}</StatusMessage>
@@ -118,7 +132,9 @@ export default function LessonsPage({ students, onStudentsChanged }) {
       {loading ? (
         <div className="content-loader"><div className="loader" /><p>Загрузка уроков...</p></div>
       ) : lessons.length ? (
-        <div className="lessons-table-wrap">
+        <section className="lessons-history-card">
+          <div className="lessons-history-heading"><div><p className="eyebrow">Фактические данные</p><h2>История уроков</h2></div><span>{lessons.length} записей</span></div>
+          <div className="lessons-table-wrap">
           <table className="lessons-table">
             <thead><tr><th>Дата и время</th><th>Ученик</th><th>Посещение</th><th>ДЗ</th><th>Активность</th><th>Монеты</th><th>Заметка</th><th aria-label="Действия" /></tr></thead>
             <tbody>
@@ -131,7 +147,7 @@ export default function LessonsPage({ students, onStudentsChanged }) {
                     <td><CheckMark value={lesson.attended} /></td>
                     <td><CheckMark value={lesson.homework} /></td>
                     <td><CheckMark value={lesson.activity} /></td>
-                    <td><strong className="coins-value">+{lesson.coins ?? 0}</strong></td>
+                    <td><strong className="coins-value"><img alt="" src="/lessons/lessons_icon_coins.png" />+{lesson.coins ?? 0}</strong></td>
                     <td className="lesson-note">{lesson.note || '—'}</td>
                     <td><div className="table-actions"><button disabled={busy} onClick={() => openEditForm(lesson)} type="button">Редактировать</button><button className="delete-link" disabled={busy} onClick={() => setLessonToDelete(lesson)} type="button">Удалить</button></div></td>
                   </tr>
@@ -139,9 +155,10 @@ export default function LessonsPage({ students, onStudentsChanged }) {
               })}
             </tbody>
           </table>
-        </div>
+          </div>
+        </section>
       ) : (
-        <section className="empty-state"><span className="empty-icon"><UiIcon name="lessons" size={30} /></span><h2>Уроков пока нет</h2><p>Добавьте урок, и он появится в истории.</p></section>
+        <section className="lessons-empty-state"><img alt="Лиса и сова отдыхают после занятий" src="/lessons/lessons_empty_state.png" /><div><h2>Уроков пока нет</h2><p>Добавьте первый урок, и он появится в истории.</p>{activeStudents.length > 0 && <button className="primary-button" onClick={openCreateForm} type="button">+ Добавить урок</button>}</div></section>
       )}
 
       {formOpen && (
@@ -155,6 +172,6 @@ export default function LessonsPage({ students, onStudentsChanged }) {
         />
       )}
       {lessonToDelete && <DeleteLessonDialog lesson={lessonToDelete} saving={busy} onCancel={() => !busy && setLessonToDelete(null)} onConfirm={handleDelete} />}
-    </>
+    </div>
   )
 }

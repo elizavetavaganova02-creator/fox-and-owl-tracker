@@ -1,7 +1,6 @@
 import { useMemo, useState } from 'react'
 import { calculateLessonCoins } from '../firebase/lessons.js'
 import StatusMessage from './StatusMessage.jsx'
-import { CoinIcon } from './UiIcon.jsx'
 
 function inputDateParts(timestamp) {
   const value = timestamp?.toDate ? timestamp.toDate() : new Date()
@@ -71,13 +70,13 @@ export default function LessonFormDialog({ lesson, students, saving, error, onCl
 
           <fieldset className="lesson-checks form-field--wide">
             <legend>Результаты урока</legend>
-            <label><input checked={attended} onChange={(event) => setAttended(event.target.checked)} type="checkbox" /><span>Посещение</span><strong>+5</strong></label>
-            <label><input checked={homework} onChange={(event) => setHomework(event.target.checked)} type="checkbox" /><span>Домашнее задание</span><strong>+5</strong></label>
-            <label><input checked={activity} onChange={(event) => setActivity(event.target.checked)} type="checkbox" /><span>Активность</span><strong>+5</strong></label>
+            <label><input checked={attended} onChange={(event) => setAttended(event.target.checked)} type="checkbox" /><img alt="" src="/lessons/lessons_icon_attendance.png" /><span>Посещение</span><strong>+5</strong></label>
+            <label><input checked={homework} onChange={(event) => setHomework(event.target.checked)} type="checkbox" /><img alt="" src="/lessons/lessons_icon_homework.png" /><span>Домашнее задание</span><strong>+5</strong></label>
+            <label><input checked={activity} onChange={(event) => setActivity(event.target.checked)} type="checkbox" /><img alt="" src="/lessons/lessons_icon_activity.png" /><span>Активность</span><strong>+5</strong></label>
           </fieldset>
 
           <div className="coin-preview form-field--wide">
-            <span>Будет начислено</span><strong className="inline-coin"><CoinIcon size={20} />{coins}</strong>
+            <span>Будет начислено</span><strong><img alt="" src="/lessons/lessons_icon_coins.png" />{coins}</strong>
           </div>
 
           <label className="form-field form-field--wide">
