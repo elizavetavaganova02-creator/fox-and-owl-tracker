@@ -71,11 +71,7 @@ jobs:
             if (!/\.(js|css|html)$/.test(file)) continue
             let text = fs.readFileSync(file, 'utf8')
             for (const folder of folders) {
-              text = text.replaceAll(`\"/${folder}/`, `\"${prefix}/${folder}/`)
-              text = text.replaceAll(`'/${folder}/`, `'${prefix}/${folder}/`)
-              text = text.replaceAll(`url(/${folder}/`, `url(${prefix}/${folder}/`)
-              text = text.replaceAll(`url(\"/${folder}/`, `url(\"${prefix}/${folder}/`)
-              text = text.replaceAll(`url('/${folder}/`, `url('${prefix}/${folder}/`)
+              text = text.replaceAll(`/${folder}/`, `${prefix}/${folder}/`)
             }
             fs.writeFileSync(file, text)
           }
