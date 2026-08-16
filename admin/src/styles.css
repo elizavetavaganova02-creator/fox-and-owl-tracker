@@ -685,3 +685,97 @@ button, .student-card, .summary-card, .dashboard-panel, .lessons-table tr { tran
 @media (max-width:1250px) { .coins-page .coins-overview { grid-template-columns:1fr; }.coins-support-card { grid-template-columns:175px minmax(0,1fr); }.coins-support-card > img { width:175px; }.coins-page .coin-filters { grid-template-columns:1fr 1fr; }.coins-filter-card > div { grid-column:1 / -1; } }
 @media (max-width:820px) { .coins-header { align-items:flex-start; }.coins-page .total-coins-card { grid-template-columns:98px minmax(0,1fr); }.coins-page .total-coins-card > img { width:94px; height:94px; }.coins-support-card { grid-template-columns:153px minmax(0,1fr); padding-right:20px; }.coins-support-card > img { width:145px; }.coins-page .coin-filters { grid-template-columns:1fr; }.coins-filter-card > div { grid-column:auto; }.coins-page .coin-filters select { width:100%; }.coins-page .coin-history-table { min-width:840px; } }
 @media (max-width:620px) { .coins-support-card { grid-template-columns:1fr; padding:12px 20px 22px; text-align:center; }.coins-support-card > img { width:180px; height:126px; margin:auto; }.coins-state { flex-direction:column; text-align:center; }.coins-state > img { width:198px; height:173px; }.coins-history-card > .section-heading { align-items:flex-start; flex-direction:column; }.coin-operation-dialog .current-balance { grid-template-columns:58px minmax(0,1fr) auto; } }
+
+/* Statistics page — visual layer only */
+.statistics-page { min-width:0; display:grid; gap:20px; }
+.statistics-page img { display:block; max-width:100%; max-height:100%; flex-shrink:0; object-fit:contain; object-position:center; image-rendering:auto; }
+.statistics-header { display:flex; align-items:flex-end; justify-content:space-between; gap:28px; padding:8px 2px 2px; }
+.statistics-title-block h1 { margin:0 0 8px; color:#292f31; font-size:clamp(2.75rem,calc(4vw + 5px),4.1rem); line-height:.95; letter-spacing:-.055em; }
+.statistics-title-block > p:last-child { margin:0; color:#827d76; font-size:1rem; font-weight:600; }
+.statistics-title-block .eyebrow { margin:0 0 10px; color:#dd6935; font-size:.76rem; letter-spacing:.16em; }
+.statistics-page .period-tabs { display:flex; flex-wrap:nowrap; gap:5px; padding:5px; border:1px solid #eadfd4; border-radius:15px; background:#f5eee7; }
+.statistics-page .period-tab { min-height:42px; padding:0 18px; border:1px solid transparent; border-radius:11px; color:#746e67; background:transparent; font-size:.85rem; font-weight:800; white-space:nowrap; }
+.statistics-page .period-tab:hover { color:#bc5d31; background:#fff9f4; }
+.statistics-page .period-tab--active { color:#b9572d; border-color:#f0d4c4; background:#fff; box-shadow:0 5px 15px rgba(113,76,48,.1); }
+.statistics-page .statistics-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:0; }
+.statistics-page .statistics-kpi { min-width:0; min-height:132px; display:grid; grid-template-columns:82px minmax(0,1fr); align-items:center; gap:16px; padding:19px 20px; overflow:visible; border:1px solid #eee2d7; border-radius:21px; background:#fff; box-shadow:0 12px 34px rgba(104,72,42,.075); }
+.statistics-kpi-icon { width:82px; height:82px; display:flex; align-items:center; justify-content:center; padding:7px; overflow:visible; border-radius:18px; }
+.statistics-kpi-icon img { width:68px; height:68px; }
+.statistics-kpi > div:last-child { min-width:0; display:grid; gap:8px; }
+.statistics-page .statistics-kpi span { color:#756f68; font-size:.84rem; font-weight:800; line-height:1.3; }
+.statistics-page .statistics-kpi strong { color:#303432; font-size:2rem; line-height:1.05; }
+.statistics-page .statistics-kpi-income { display:grid; gap:4px; font-size:1.52rem; }
+.statistics-kpi--violet .statistics-kpi-icon { background:#f4effc; }
+.statistics-kpi--green .statistics-kpi-icon { background:#edf8ef; }
+.statistics-kpi--terracotta .statistics-kpi-icon { background:#fff1ec; }
+.statistics-kpi--gold .statistics-kpi-icon { background:#fff7df; }
+.statistics-kpi--blue .statistics-kpi-icon { background:#eef6fd; }
+.statistics-kpi--peach .statistics-kpi-icon { background:#fff2e9; }
+.statistics-overview-row { min-width:0; display:grid; grid-template-columns:minmax(0,1.42fr) minmax(320px,.58fr); gap:14px; }
+.statistics-support-card { min-width:0; min-height:190px; display:grid; grid-template-columns:minmax(0,1fr) 330px; align-items:center; gap:18px; padding:22px 25px; overflow:visible; border:1px solid #f0dfcf; border-radius:23px; background:linear-gradient(120deg,#fffdf9 0%,#fff5e9 70%,#f8f0e8 100%); box-shadow:0 13px 36px rgba(111,72,37,.07); }
+.statistics-support-copy { min-width:0; position:relative; z-index:1; }
+.statistics-support-copy .eyebrow { margin-bottom:7px; color:#dc6935; font-size:.7rem; letter-spacing:.15em; }
+.statistics-support-copy h2 { max-width:470px; margin:0 0 9px; color:#353735; font-size:1.45rem; line-height:1.18; }
+.statistics-support-copy > p:last-child { max-width:510px; margin:0; color:#7d766e; font-size:.86rem; line-height:1.55; }
+.statistics-support-image { width:330px; height:140px; padding:5px; justify-self:end; }
+.statistics-attendance-card { min-width:0; min-height:190px; padding:21px 22px; border:1px solid #dfeade; border-radius:23px; background:linear-gradient(145deg,#fff,#f2f8f1); box-shadow:0 13px 36px rgba(70,105,72,.07); }
+.statistics-attendance-head { display:flex; align-items:center; justify-content:space-between; gap:14px; }
+.statistics-attendance-head .eyebrow { margin:0 0 7px; color:#568563; font-size:.7rem; letter-spacing:.13em; }
+.statistics-attendance-head strong { color:#356a47; font-size:2.65rem; line-height:1; }
+.statistics-attendance-head img { width:72px; height:72px; padding:5px; }
+.statistics-attendance-card .attendance-track { height:10px; margin:18px 0 0; overflow:hidden; border-radius:999px; background:#e7eee6; }
+.statistics-attendance-card .attendance-track span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#ef8a52,#68ad79); }
+.statistics-attendance-card > p { margin:10px 0 0; color:#79766f; font-size:.82rem; font-weight:700; line-height:1.4; }
+.statistics-empty-card { min-height:160px; display:flex; align-items:center; gap:24px; padding:18px 28px; border:1px dashed #e7d8ca; border-radius:22px; background:#fffaf4; }
+.statistics-empty-card img { width:150px; height:130px; padding:4px; }
+.statistics-empty-card h2 { margin:0 0 7px; color:#3d403d; font-size:1.25rem; }
+.statistics-empty-card p { margin:0; color:#817a72; font-size:.86rem; line-height:1.5; }
+.statistics-state { min-height:270px; display:flex; align-items:center; justify-content:center; gap:18px; padding:32px; border:1px solid #eadfd4; border-radius:23px; background:#fff; box-shadow:0 12px 34px rgba(104,72,42,.06); }
+.statistics-loading { flex-direction:column; color:#77716a; font-size:.94rem; font-weight:700; }
+.statistics-error { justify-content:flex-start; background:#fff9f6; }
+.statistics-error-mark { width:58px; height:58px; display:grid; place-items:center; flex:0 0 auto; border-radius:18px; color:#fff; background:#c96c5c; font-size:1.8rem; font-weight:900; }
+.statistics-error h2 { margin:0 0 7px; color:#5e3731; font-size:1.25rem; }
+.statistics-error p { margin:0 0 6px; color:#8b6b65; font-size:.86rem; }
+.statistics-error small { color:#a3847e; font-size:.74rem; }
+.statistics-page .student-statistics-panel { min-width:0; margin:0; padding:0; overflow:hidden; border:1px solid var(--border); border-radius:23px; background:#fff; box-shadow:0 13px 36px rgba(104,72,42,.075); }
+.statistics-page .student-statistics-panel > .section-heading { margin:0; padding:22px 24px 18px; }
+.statistics-page .student-statistics-panel .eyebrow { margin-bottom:5px; font-size:.7rem; letter-spacing:.14em; }
+.statistics-page .student-statistics-panel h2 { margin:0; color:#303333; font-size:1.45rem; }
+.statistics-page .student-statistics-panel .lessons-table-wrap { max-width:100%; overflow-x:auto; border:0; border-top:1px solid var(--border); border-radius:0; box-shadow:none; }
+.statistics-page .student-statistics-table { min-width:1010px; }
+.statistics-page .student-statistics-table th { padding:16px 14px; color:#7d7770; background:#fcf8f3; font-size:.75rem; letter-spacing:.025em; white-space:nowrap; }
+.statistics-page .student-statistics-table td { padding:17px 14px; color:#4a4f4c; font-size:.86rem; }
+.statistics-page .student-statistics-table tbody tr:hover { background:#fffaf5; }
+.statistics-student-name { display:flex; align-items:center; gap:8px; }
+.statistics-student-name strong { color:#343936; font-size:.91rem; }
+.statistics-page .hidden-student-label { margin:0; padding:4px 7px; border-radius:999px; color:#817a72; background:#eee9e4; font-size:.6rem; font-weight:800; }
+.student-statistics-row--hidden { opacity:.58; }
+.student-attendance-value { min-width:92px; display:grid; grid-template-columns:36px 1fr; align-items:center; gap:8px; }
+.student-attendance-value strong { color:#476c53; font-size:.78rem; }
+.student-attendance-value > span { height:6px; overflow:hidden; border-radius:999px; background:#e9eee9; }
+.student-attendance-value i { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#ef8a52,#67aa78); }
+.statistics-coin-value { display:inline-flex; align-items:center; gap:6px; color:#966220; font-weight:800; white-space:nowrap; }
+.statistics-coin-value img { width:25px; height:25px; padding:2px; }
+@media (max-width:1250px) {
+  .statistics-support-card { grid-template-columns:minmax(0,1fr) 270px; }
+  .statistics-support-image { width:270px; height:126px; }
+}
+@media (max-width:1080px) {
+  .statistics-header { align-items:flex-start; flex-direction:column; }
+  .statistics-overview-row { grid-template-columns:1fr; }
+  .statistics-support-card { grid-template-columns:minmax(0,1fr) 330px; }
+}
+@media (max-width:820px) {
+  .statistics-page .statistics-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .statistics-page .period-tabs { width:100%; }
+  .statistics-page .period-tab { flex:1 1 0; padding:0 10px; }
+  .statistics-support-card { grid-template-columns:minmax(0,1fr) 245px; }
+  .statistics-support-image { width:245px; height:120px; }
+}
+@media (max-width:620px) {
+  .statistics-page .statistics-grid { grid-template-columns:1fr; }
+  .statistics-page .period-tabs { flex-direction:column; }
+  .statistics-support-card { grid-template-columns:1fr; text-align:center; }
+  .statistics-support-image { width:280px; height:125px; justify-self:center; }
+  .statistics-empty-card { flex-direction:column; text-align:center; }
+}
