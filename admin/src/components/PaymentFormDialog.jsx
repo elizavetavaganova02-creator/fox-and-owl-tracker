@@ -32,7 +32,7 @@ export default function PaymentFormDialog({ payment, students, saving, error, on
     <div className="dialog-backdrop" role="presentation" onMouseDown={(event) => {
       if (event.target === event.currentTarget && !saving) onClose()
     }}>
-      <section className="dialog" role="dialog" aria-modal="true" aria-labelledby="payment-form-title">
+      <section className="dialog payment-dialog" role="dialog" aria-modal="true" aria-labelledby="payment-form-title">
         <div className="dialog-heading">
           <div><p className="eyebrow">Учёт дохода</p><h2 id="payment-form-title">{payment ? 'Редактировать оплату' : 'Добавить оплату'}</h2></div>
           <button className="icon-button" disabled={saving} onClick={onClose} type="button" aria-label="Закрыть">×</button>

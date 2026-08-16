@@ -153,30 +153,36 @@ export default function PaymentsPage({ students }) {
   }
 
   return (
-    <>
-      <header className="page-header">
-        <div><p className="eyebrow">Финансы</p><h1>Оплаты</h1></div>
+    <div className="payments-page">
+      <header className="page-header payments-header">
+        <div><p className="eyebrow">Финансы</p><h1>Оплаты</h1><span>Доход и история фактических поступлений</span></div>
         <button className="primary-button add-student-button" disabled={!students.length} onClick={openCreateForm} type="button">+ Добавить оплату</button>
       </header>
 
-      <section className="income-card">
-        <div><p>Доход за {monthLabel(selectedMonth)}</p><span>Рассчитано из оплат</span></div>
-        <div className="income-totals">
-          {Object.keys(monthlyIncome).length
-            ? Object.entries(monthlyIncome).map(([currency, amount]) => (
-              <strong key={currency}>
-                {Object.keys(monthlyIncome).length > 1 ? `${currency}: ` : ''}
-                {formatMoney(amount, currency)}
-              </strong>
-            ))
-            : <strong>0</strong>}
-        </div>
+      {!loadError && <>
+      <section className="payments-overview">
+        <article className="payments-income-card">
+          <img alt="" src="/payments/payments_icon_income.png" />
+          <div className="payments-income-copy"><p>Доход за {monthLabel(selectedMonth)}</p><span>Рассчитано из фактических оплат</span></div>
+          <div className="payments-income-totals">
+            {Object.keys(monthlyIncome).length
+              ? Object.entries(monthlyIncome).map(([currency, amount]) => (
+                <div key={currency}><img alt="" src={currency === 'USD' ? '/payments/payments_icon_usd.png' : '/payments/payments_icon_rub.png'} /><span>{currency}</span><strong>{formatMoney(amount, currency)}</strong></div>
+              ))
+              : <strong className="payments-income-zero">0</strong>}
+          </div>
+        </article>
+        <article className="payments-count-card"><img alt="" src="/payments/payments_icon_receipt.png" /><div><span>Оплат за месяц</span><strong>{paymentsForSelectedMonth.length}</strong></div></article>
       </section>
 
-      <div className="payment-filters">
+      <section className="payments-support-card"><img alt="Лиса и сова рядом с оплатами" src="/payments/payments_header_fox_owl.png" /><div><p className="eyebrow">Fox & Owl</p><h2>Все поступления — в одном месте</h2><span>Фактические оплаты сохраняются в истории и автоматически попадают в доход.</span></div></section>
+
+      <div className="payment-filters payments-filter-card">
+        <div><p className="eyebrow">Фильтры</p><span>Настройте отображение истории</span></div>
         <label>Месяц<input type="month" value={selectedMonth} onChange={(event) => event.target.value && setSelectedMonth(event.target.value)} /></label>
         <label>Ученик<select value={selectedStudent} onChange={(event) => setSelectedStudent(event.target.value)}><option value="all">Все ученики</option>{students.map((student) => <option key={student.id} value={student.id}>{student.name}</option>)}</select></label>
       </div>
+      </>}
 
       <div className="page-messages" aria-live="polite">
         <StatusMessage>{loadError || error}</StatusMessage>
@@ -186,9 +192,11 @@ export default function PaymentsPage({ students }) {
       {loading ? (
         <div className="content-loader"><div className="loader" /><p>Загружаем оплаты...</p></div>
       ) : loadError ? (
-        <section className="empty-state empty-state--error"><span className="empty-icon"><UiIcon name="warning" size={30} /></span><h2>Не удалось загрузить оплаты</h2><p>Проверьте подключение и попробуйте выбрать месяц ещё раз.</p></section>
+        <section className="payments-error-state"><span><UiIcon name="warning" size={30} /></span><h2>Не удалось загрузить оплаты</h2><p>Проверьте подключение и попробуйте выбрать месяц ещё раз.</p></section>
       ) : filteredPayments.length ? (
-        <div className="lessons-table-wrap">
+        <section className="payments-history-card">
+          <div className="payments-history-heading"><div><p className="eyebrow">Фактические данные</p><h2>История оплат</h2></div><span>{filteredPayments.length} записей</span></div>
+          <div className="lessons-table-wrap">
           <table className="lessons-table payments-table">
             <thead><tr><th>Дата</th><th>Ученик</th><th>Сумма</th><th>Валюта</th><th>Комментарий</th><th aria-label="Действия" /></tr></thead>
             <tbody>{filteredPayments.map((payment) => {
@@ -198,20 +206,21 @@ export default function PaymentsPage({ students }) {
                   <td><strong>{paidAt.date}</strong><small>{paidAt.time}</small></td>
                   <td>{studentNames[payment.studentId] || 'Неизвестный ученик'}</td>
                   <td><strong className="payment-amount">{formatMoney(Number(payment.amount) || 0, payment.currency)}</strong></td>
-                  <td>{payment.currency}</td>
+                  <td><span className={payment.currency === 'USD' ? 'payment-currency payment-currency--usd' : 'payment-currency'}>{payment.currency}</span></td>
                   <td className="lesson-note">{payment.note || '—'}</td>
                   <td><div className="table-actions"><button disabled={busy} onClick={() => openEditForm(payment)} type="button">Редактировать</button><button className="delete-link" disabled={busy} onClick={() => setPaymentToDelete(payment)} type="button">Удалить</button></div></td>
                 </tr>
               )
             })}</tbody>
           </table>
-        </div>
+          </div>
+        </section>
       ) : (
-        <section className="empty-state"><span className="empty-icon"><UiIcon name="receipt" size={30} /></span><h2>Оплат за этот месяц нет</h2><p>Добавьте оплату или выберите другой месяц.</p></section>
+        <section className="payments-empty-state"><img alt="Сова рядом с пустым кошельком" src="/payments/payments_empty_state.png" /><div><h2>Оплат за этот месяц нет</h2><p>Добавьте оплату или выберите другой месяц.</p>{students.length > 0 && <button className="primary-button" onClick={openCreateForm} type="button">+ Добавить оплату</button>}</div></section>
       )}
 
       {formOpen && <PaymentFormDialog error={formError} onClose={() => !busy && setFormOpen(false)} onSave={handleSave} payment={editingPayment} saving={busy} students={students} />}
       {paymentToDelete && <DeletePaymentDialog onCancel={() => !busy && setPaymentToDelete(null)} onConfirm={handleDelete} saving={busy} />}
-    </>
+    </div>
   )
 }
