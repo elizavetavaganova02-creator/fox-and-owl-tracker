@@ -11,7 +11,7 @@ import StatusMessage from './StatusMessage.jsx'
 import StudentCard from './StudentCard.jsx'
 import StudentFormDialog from './StudentFormDialog.jsx'
 import TodayPage from './TodayPage.jsx'
-import { AnimalAvatar, BrandMark, UiIcon } from './UiIcon.jsx'
+import { BrandMark, UiIcon } from './UiIcon.jsx'
 
 const navigation = [
   { label: 'Сегодня', section: 'today', icon: 'today' },
@@ -151,14 +151,25 @@ export default function AdminPage() {
             <StatisticsPage students={students} />
           )
         ) : (
-          <>
-            <header className="page-header">
-              <div><p className="eyebrow">Управление группой</p><h1>Ученики</h1></div>
+          <div className="students-page">
+            <header className="page-header students-header">
+              <div><p className="eyebrow">Управление группой</p><h1>Ученики</h1><span>Управляйте учениками, прогрессом и балансом монет</span></div>
               <div className="page-header-actions">
                 <span className="student-count">Всего: {students.length}</span>
                 <button className="primary-button add-student-button" onClick={openCreateForm} type="button">+ Добавить ученика</button>
               </div>
             </header>
+
+            <section className="students-overview" aria-label="Краткая статистика учеников">
+              <article><span>Всего учеников</span><strong>{students.length}</strong></article>
+              <article className="students-overview--active"><span>Активные</span><strong>{students.filter((student) => student.active).length}</strong></article>
+              <article className="students-overview--hidden"><span>Скрытые</span><strong>{students.filter((student) => !student.active).length}</strong></article>
+            </section>
+
+            <section className="students-support-card">
+              <img alt="Лиса и сова" src="/students/students_header_fox_owl.png" />
+              <div><p className="eyebrow">Fox & Owl</p><h2>Каждый ученик — отдельная история прогресса</h2><span>Баланс и уроки всегда под рукой.</span></div>
+            </section>
 
             <div className="page-messages" aria-live="polite">
               <StatusMessage>{error}</StatusMessage>
@@ -174,9 +185,9 @@ export default function AdminPage() {
                 ))}
               </section>
             ) : (
-              <section className="empty-state"><span className="empty-icon"><AnimalAvatar id="owl" /></span><h2>Учеников пока нет</h2><p>Добавьте первого ученика, чтобы начать работу.</p></section>
+              <section className="students-empty-state"><img alt="Лиса и сова приглашают добавить ученика" src="/students/students_empty_state.png" /><div><h2>Учеников пока нет</h2><p>Добавьте первого ученика, чтобы начать работу.</p><button className="primary-button" onClick={openCreateForm} type="button">+ Добавить ученика</button></div></section>
             )}
-          </>
+          </div>
         )}
       </div></main>
 

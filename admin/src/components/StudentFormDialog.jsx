@@ -3,6 +3,15 @@ import { avatars } from '../constants/avatars.js'
 import StatusMessage from './StatusMessage.jsx'
 import { AnimalAvatar } from './UiIcon.jsx'
 
+const pngAvatars = new Set(['fox', 'owl', 'panda', 'rabbit', 'cat', 'dog', 'penguin', 'bear', 'hedgehog', 'raccoon', 'elephant'])
+
+function StudentAvatar({ id }) {
+  const source = avatars[id]?.src || (pngAvatars.has(id) ? `/students/students_avatar_${id}.png` : '')
+  return source
+    ? <img alt="" src={source} />
+    : <AnimalAvatar id={id} />
+}
+
 export default function StudentFormDialog({ student, saving, error, onClose, onSave }) {
   const [name, setName] = useState('')
   const [avatar, setAvatar] = useState('fox')
@@ -56,7 +65,7 @@ export default function StudentFormDialog({ student, saving, error, onClose, onS
                     type="radio"
                     value={id}
                   />
-                  <span aria-hidden="true"><AnimalAvatar id={id} /></span>
+                  <span aria-hidden="true"><StudentAvatar id={id} /></span>
                   <small>{item.label}</small>
                 </label>
               ))}
