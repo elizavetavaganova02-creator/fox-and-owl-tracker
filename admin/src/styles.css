@@ -254,6 +254,7 @@ button, .student-card, .summary-card, .dashboard-panel, .lessons-table tr { tran
 .sidebar-brand small { color: #a38e7e; font-size: .59rem; font-weight: 800; letter-spacing: .15em; }
 .sidebar nav { gap: 5px; }
 .nav-button, .logout-button { display: flex; align-items: center; gap: 11px; min-height: 44px; padding: 0 13px; color: #777773; border-radius: 13px; font-size: .86rem; }
+.nav-button { font-size: .92rem; }
 .nav-button svg, .logout-button svg { flex: 0 0 auto; }
 .nav-button:hover { color: var(--accent); background: #fff7ef; }
 .nav-button--active, .nav-button--active:hover { color: #dc6733; background: var(--accent-soft); box-shadow: none; }
@@ -341,3 +342,65 @@ button, .student-card, .summary-card, .dashboard-panel, .lessons-table tr { tran
   .admin-layout { grid-template-columns:1fr; }.sidebar { position:static; width:auto; height:auto; border-right:0; border-bottom:1px solid var(--border); }.sidebar-brand { padding-bottom:14px; }.sidebar nav { grid-template-columns:repeat(3,1fr); }.nav-button { justify-content:center; }.logout-button { justify-content:center; }.topbar { display:none; }.content { padding:28px 20px 45px; }.summary-grid { grid-template-columns:1fr 1fr; }
 }
 @media (max-width: 560px) { .summary-grid,.statistics-grid { grid-template-columns:1fr; }.sidebar nav { grid-template-columns:repeat(2,1fr); }.admin-profile p { display:none; } }
+
+/* Today dashboard — visual layer only */
+.today-page { --today-ink:#2f312e; --today-muted:#7e7a73; --today-line:#eee4d8; display:grid; gap:22px; padding-top:12px; color:var(--today-ink); }
+.today-header { display:flex; justify-content:space-between; align-items:flex-end; gap:28px; padding:8px 2px 2px; }
+.today-heading .eyebrow { margin-bottom:7px; color:#dd6935; font-size:.76rem; letter-spacing:.16em; }
+.today-heading h1 { margin:0 0 8px; color:#292f31; font-size:clamp(2.75rem,calc(4vw + 5px),4.1rem); line-height:.95; letter-spacing:-.055em; }
+.today-heading > span { color:#827d76; font-size:1rem; font-weight:600; text-transform:capitalize; }
+.today-active-card { min-width:220px; display:flex; justify-content:space-between; align-items:center; gap:22px; padding:17px 20px; border:1px solid var(--today-line); border-radius:19px; background:linear-gradient(145deg,#fff,#fffdf9); box-shadow:0 14px 38px rgba(104,72,42,.09); }
+.today-active-card > div { display:grid; gap:5px; }
+.today-active-card span { color:#575955; font-size:.78rem; font-weight:800; }
+.today-active-card small { color:#aaa096; font-size:.67rem; }
+.today-active-card > strong { color:#d9612d; font-size:2.35rem; line-height:1; }
+.today-kpi-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:15px; }
+.today-kpi-card { position:relative; min-width:0; min-height:142px; display:grid; grid-template-columns:68px minmax(0,1fr); align-items:center; gap:14px; padding:18px; overflow:hidden; border:1px solid var(--today-line); border-radius:22px; background:#fff; box-shadow:0 12px 34px rgba(104,72,42,.075); }
+.today-kpi-card::after { content:""; position:absolute; right:-25px; bottom:-34px; width:90px; height:90px; border-radius:50%; background:var(--kpi-glow,#f7eee4); opacity:.55; }
+.today-kpi-card--blue { --kpi-glow:#dcecff; }
+.today-kpi-card--gold { --kpi-glow:#fff0b9; }
+.today-kpi-card--green { --kpi-glow:#dff3dc; }
+.today-kpi-card--peach { --kpi-glow:#ffe1cf; }
+.today-kpi-card > div { position:relative; z-index:1; min-width:0; display:grid; gap:4px; }
+.today-kpi-card p { min-height:2.2em; margin:0; color:#706e68; font-size:.82rem; font-weight:800; line-height:1.35; }
+.today-kpi-card strong,.today-kpi-currencies { color:#2d3434; font-size:2rem; line-height:1.08; letter-spacing:-.035em; }
+.today-kpi-currencies { display:grid; gap:2px; font-size:1.3rem; }
+.today-kpi-card small { color:#aaa198; font-size:.69rem; line-height:1.35; }
+.today-illustration { position:relative; z-index:1; display:block; flex:0 0 auto; }
+.today-illustration img { width:100%; height:100%; display:block; object-fit:contain; image-rendering:auto; }
+.today-kpi-icon { width:68px; height:68px; }
+.today-support-card { position:relative; min-height:142px; display:grid; grid-template-columns:190px minmax(0,1fr) 14px; align-items:center; gap:18px; padding:0 28px 0 10px; overflow:hidden; border:1px solid #f0dfcf; border-radius:24px; background:linear-gradient(120deg,#fffdf9 0%,#fff7ec 65%,#f9f1e7 100%); box-shadow:0 13px 36px rgba(111,72,37,.075); }
+.today-support-art { align-self:stretch; overflow:hidden; }
+.today-support-illustration { width:190px; height:140px; margin-top:2px; }
+.today-support-card .eyebrow { margin-bottom:5px; }
+.today-support-card h2 { margin:0 0 7px; color:#363631; font-size:1.23rem; }
+.today-support-card span { color:#817a72; font-size:.78rem; line-height:1.55; }
+.today-support-dot { width:10px; height:10px; border-radius:50%; background:#e57b44; box-shadow:0 0 0 8px rgba(229,123,68,.1); }
+.today-panels { display:grid; grid-template-columns:minmax(0,1.12fr) minmax(0,.88fr); gap:17px; align-items:start; }
+.today-panel { min-width:0; min-height:270px; padding:23px; border:1px solid var(--today-line); border-radius:23px; background:#fff; box-shadow:0 13px 36px rgba(104,72,42,.075); }
+.today-panel-heading { display:flex; justify-content:space-between; align-items:center; gap:15px; margin-bottom:18px; }
+.today-panel-heading .eyebrow { margin-bottom:5px; font-size:.7rem; letter-spacing:.13em; }
+.today-panel-heading h2 { margin:0; color:#303333; font-size:1.325rem; }
+.today-panel-heading button { padding:8px 0; border:0; color:#cb602f; background:transparent; font-size:.72rem; font-weight:800; white-space:nowrap; }
+.today-panel-heading button span { margin-left:4px; font-size:1rem; }
+.today-list { display:grid; }
+.today-list article { min-width:0; display:grid; align-items:center; gap:11px; padding:13px 5px; border-top:1px solid #f1ebe3; }
+.today-list article:first-child { border-top:0; }
+.today-list--lessons article { grid-template-columns:46px minmax(100px,1fr) auto auto; }
+.today-list--payments article { grid-template-columns:46px minmax(100px,1fr) auto; }
+.today-list time { color:#8a8279; font-size:.72rem; font-weight:800; }
+.today-list-copy { min-width:0; }
+.today-list-copy strong { display:block; overflow:hidden; color:#3c403e; font-size:.82rem; text-overflow:ellipsis; white-space:nowrap; }
+.today-list-copy p { margin:4px 0 0; overflow:hidden; color:#a09890; font-size:.67rem; text-overflow:ellipsis; white-space:nowrap; }
+.today-list article > b { color:#c65d2e; font-size:.78rem; white-space:nowrap; }
+.today-statuses { display:flex; flex-wrap:wrap; justify-content:flex-end; gap:4px; }
+.today-status { padding:4px 7px; border:1px solid #e7dfd7; border-radius:100px; color:#8a8178; background:#f8f5f1; font-size:.57rem; font-weight:800; white-space:nowrap; }
+.today-status--yes { border-color:#cde6d2; color:#34724d; background:#edf8ef; }
+.today-empty { min-height:185px; display:flex; align-items:center; justify-content:center; gap:18px; padding:18px; border:1px dashed #eadfd2; border-radius:18px; background:#fdfaf6; }
+.today-empty-illustration { width:112px; height:116px; }
+.today-empty h3 { margin:0 0 6px; color:#484a46; font-size:1rem; }
+.today-empty p { max-width:215px; margin:0; color:#9a928a; font-size:.75rem; line-height:1.55; }
+@media (max-width:1400px) { .today-panels { grid-template-columns:1fr; } }
+@media (max-width:1200px) { .today-kpi-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:760px) { .today-header { align-items:stretch; flex-direction:column; }.today-active-card { min-width:0; }.today-support-card { grid-template-columns:130px 1fr; padding-right:20px; }.today-support-dot { display:none; }.today-list--lessons article { grid-template-columns:42px minmax(90px,1fr) auto; }.today-statuses { grid-column:2 / -1; justify-content:flex-start; }.today-empty { align-items:center; flex-direction:column; text-align:center; } }
+@media (max-width:560px) { .today-kpi-grid { grid-template-columns:1fr; }.today-support-card { grid-template-columns:1fr; padding:0 20px 22px; text-align:center; }.today-support-art { height:130px; }.today-list--payments article { grid-template-columns:42px 1fr; }.today-list--payments article > b { grid-column:2; }.today-panel-heading { align-items:flex-start; flex-direction:column; } }
